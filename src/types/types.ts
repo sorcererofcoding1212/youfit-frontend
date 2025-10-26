@@ -42,6 +42,7 @@ export interface VolumeResponse {
 export interface DistributionResponse {
   muscle: string;
   volume: number;
+  [key: string]: any;
 }
 
 export interface StrengthResponse {
