@@ -102,6 +102,8 @@ export const RegisterCard = () => {
                       required
                       {...field}
                       placeholder="Enter your phone number"
+                      pattern="[0-9]*"
+                      inputMode="numeric"
                     />
                   </FormControl>
                   <FormMessage />

@@ -88,6 +88,8 @@ export const LoginCard = () => {
                       required
                       {...field}
                       placeholder="Enter your phone number"
+                      inputMode="numeric"
+                      pattern="[0-9]*"
                     />
                   </FormControl>
                   <FormMessage />
