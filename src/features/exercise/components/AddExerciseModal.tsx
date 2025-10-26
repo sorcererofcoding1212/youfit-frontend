@@ -71,6 +71,7 @@ export const AddExerciseModal = ({
       if (refetch) refetch();
       setExercise(null);
       setOpenModal(false);
+      clearValues();
     } catch (error) {
       console.log(error);
     } finally {
