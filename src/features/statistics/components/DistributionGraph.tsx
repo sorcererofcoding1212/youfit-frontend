@@ -96,7 +96,35 @@ export const DistributionGraph = () => {
                   ))}
                 </Pie>
                 <Tooltip content={<CustomTooltip />} />
-                <Legend align="center" className="w-[80%]" />
+                <Legend
+                  content={
+                    <div className="mx-auto w-full max-w-sm">
+                      <div className="w-full">
+                        <div className="flex flex-wrap justify-center gap-x-4 gap-y-2 text-sm p-2">
+                          {graphData.map((entry, index) => (
+                            <div
+                              key={index}
+                              className="flex items-center gap-1"
+                            >
+                              <div
+                                className="w-3 h-3 rounded-xs"
+                                style={{
+                                  backgroundColor:
+                                    COLORS[index % COLORS.length],
+                                }}
+                              />
+                              <span
+                                style={{ color: COLORS[index % COLORS.length] }}
+                              >
+                                {entry.muscle}
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  }
+                />
               </PieChart>
             </ResponsiveContainer>
           </GraphWrapper>
