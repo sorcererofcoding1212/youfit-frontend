@@ -4,7 +4,14 @@ import type { DistributionResponse } from "../../../types/types";
 import { useGraphData } from "../hooks/useGraphData";
 import { PageLoader } from "../../../components/PageLoader";
 import { GraphWrapper } from "./GraphWrapper";
-import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
+import {
+  Cell,
+  Legend,
+  Pie,
+  PieChart,
+  ResponsiveContainer,
+  Tooltip,
+} from "recharts";
 import { DurationOptions } from "./DurationOptions";
 import { MobileGraphHeader } from "./MobileGraphHeader";
 
@@ -80,7 +87,6 @@ export const DistributionGraph = () => {
                   cx="50%"
                   cy="50%"
                   name="Muscle Group Distribution"
-                  label={({ name }) => name}
                 >
                   {graphData.map((_, index) => (
                     <Cell
@@ -90,6 +96,7 @@ export const DistributionGraph = () => {
                   ))}
                 </Pie>
                 <Tooltip content={<CustomTooltip />} />
+                <Legend align="center" />
               </PieChart>
             </ResponsiveContainer>
           </GraphWrapper>
