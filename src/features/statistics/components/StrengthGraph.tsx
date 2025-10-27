@@ -105,7 +105,7 @@ export const StrengthGraph = () => {
             className={cn(
               "opacity-60 text-xl lg:text-2xl",
               !exerciseId &&
-                "cursor-pointer lg:hover:py-4 lg:hover:bg-blue-100 lg:hover:text-blue-700  lg:hover:px-8 lg:hover:rounded-md active:bg-blue-100"
+                "cursor-pointer active:px-6 active:py-3 active:rounded-md active:text-blue-500 active:hover:bg-blue-100 lg:hover:py-4 lg:hover:bg-blue-100 lg:hover:text-blue-700 lg:hover:px-8 lg:hover:rounded-md active:bg-blue-100"
             )}
           >
             {exerciseId ? "No Data Available" : "Click To Select Exercise"}

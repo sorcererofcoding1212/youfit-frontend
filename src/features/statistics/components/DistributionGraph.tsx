@@ -80,6 +80,7 @@ export const DistributionGraph = () => {
                   cx="50%"
                   cy="50%"
                   name="Muscle Group Distribution"
+                  label={({ name }) => name}
                 >
                   {graphData.map((_, index) => (
                     <Cell
