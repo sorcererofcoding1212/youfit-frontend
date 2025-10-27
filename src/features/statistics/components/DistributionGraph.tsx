@@ -96,7 +96,7 @@ export const DistributionGraph = () => {
                   ))}
                 </Pie>
                 <Tooltip content={<CustomTooltip />} />
-                <Legend align="center" />
+                <Legend align="center" className="w-[80%]" />
               </PieChart>
             </ResponsiveContainer>
           </GraphWrapper>
