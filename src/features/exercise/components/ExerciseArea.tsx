@@ -23,7 +23,7 @@ export const ExerciseArea = ({
                   setExercise(exercise);
                   setOpenModal(true);
                 }}
-                className="px-6 w-[90%] lg:w-[40%] cursor-pointer flex items-center gap-x-3 lg:gap-x-4 lg:hover:scale-[99%] transition-all py-3 font-semibold opacity-75 shadow-sm lg:border my-1 rounded"
+                className="px-6 w-[90%] lg:w-[40%] cursor-pointer flex items-center gap-x-3 lg:gap-x-4 lg:hover:scale-[99%] transition-all py-3 font-semibold opacity-75 shadow-sm border-[0.5px] lg:border my-1 rounded"
                 key={exercise._id}
               >
                 {exercise.name}
@@ -35,7 +35,7 @@ export const ExerciseArea = ({
                   setExercise(exercise);
                   setOpenModal(true);
                 }}
-                className="px-6 w-[90%] lg:w-[40%] cursor-pointer flex items-center gap-x-3 lg:gap-x-4 lg:hover:scale-[99%] transition-all py-3 font-semibold opacity-75 shadow-sm border my-1 rounded"
+                className="px-6 w-[90%] lg:w-[40%] cursor-pointer flex items-center gap-x-3 lg:gap-x-4 lg:hover:scale-[99%] transition-all py-3 font-semibold opacity-75 shadow-sm border-[0.5px] lg:border my-1 rounded"
                 key={exercise._id}
               >
                 {exercise.name}

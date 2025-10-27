@@ -30,7 +30,7 @@ export const ExerciseSelectorModalOptions = ({
             categories.map((category) => (
               <div
                 onClick={() => setCategoryId(category._id)}
-                className="px-6 w-[90%] mx-auto cursor-pointer my-3 flex items-center gap-x-3 lg:gap-x-4 lg:hover:scale-[99%] transition-all py-3 font-semibold opacity-75 shadow-sm rounded lg:border"
+                className="px-6 w-[90%] mx-auto cursor-pointer my-3 flex items-center gap-x-3 lg:gap-x-4 lg:hover:scale-[99%] transition-all py-3 font-semibold opacity-75 shadow-sm rounded border-[0.5] lg:border"
                 key={category._id}
               >
                 {category.muscleGroupName}
@@ -50,7 +50,7 @@ export const ExerciseSelectorModalOptions = ({
                   setExerciseName(exercise.name);
                   setOpen(false);
                 }}
-                className="px-6 w-[90%] mx-auto cursor-pointer my-2 lg:my-3 flex items-center gap-x-3 lg:gap-x-4 lg:hover:scale-[99%] transition-all py-2 lg:py-3 font-semibold opacity-75 shadow-sm rounded border"
+                className="px-6 w-[90%] mx-auto cursor-pointer my-3 flex items-center gap-x-3 lg:gap-x-4 lg:hover:scale-[99%] transition-all py-3 font-semibold opacity-75 shadow-sm rounded border-[0.5] lg:border"
                 key={exercise._id}
               >
                 {exercise.name}
