@@ -8,25 +8,25 @@ import { MdDelete, MdEdit } from "react-icons/md";
 import type { Set } from "../../../types/types";
 import { useAppStore } from "../../../store/app.store";
 import { WorkoutAreaSetMenuItem } from "./WorkoutAreaSetMenuItem";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import axios from "../../../lib/axios";
 import { toast } from "sonner";
+import { EditExerciseModal } from "../../exercise/components/EditExerciseModal";
 
 interface WorkoutAreaSetMenuProps {
   set: Set;
-  setEditOpenModal: (val: boolean) => void;
   workoutId: string;
   refetch: () => void;
 }
 
 export const WorkoutAreaSetMenu = ({
   set,
-  setEditOpenModal,
   workoutId,
   refetch,
 }: WorkoutAreaSetMenuProps) => {
+  console.log(workoutId);
   const setEditSet = useAppStore((state) => state.setEditSet);
-  const setEditWorkoutId = useAppStore((state) => state.setEditWorkoutId);
+  const [openEditModal, setEditOpenModal] = useState(false);
 
   const [_, setIsDeleting] = useState(false);
 
@@ -58,9 +58,6 @@ export const WorkoutAreaSetMenu = ({
     }
   };
 
-  useEffect(() => {
-    setEditWorkoutId(workoutId);
-  }, [workoutId]);
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -71,22 +68,24 @@ export const WorkoutAreaSetMenu = ({
         align="center"
       >
         <WorkoutAreaSetMenuItem
-          onClick={(e) => {
+          onClick={() => {
             editSetHandler(set);
-            e.stopPropagation();
           }}
           label="Edit"
           Icon={MdEdit}
         />
         <WorkoutAreaSetMenuItem
-          onClick={(e) => {
-            deleteSetHandler();
-            e.stopPropagation();
-          }}
+          onClick={deleteSetHandler}
           label="Delete"
           Icon={MdDelete}
         />
       </DropdownMenuContent>
+      <EditExerciseModal
+        openEditModal={openEditModal}
+        setOpenEditModal={setEditOpenModal}
+        refetch={refetch}
+        editWorkoutId={workoutId}
+      />
     </DropdownMenu>
   );
 };

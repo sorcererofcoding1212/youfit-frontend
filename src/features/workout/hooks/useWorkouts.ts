@@ -15,7 +15,7 @@ export const useWorkouts = (sessionId: string) => {
         toast.error(res.data.msg || "Internal server error");
         return;
       }
-
+      console.log(res.data.workouts);
       setWorkouts(res.data.workouts);
     } catch (error) {
     } finally {

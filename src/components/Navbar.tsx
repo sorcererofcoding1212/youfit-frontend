@@ -5,7 +5,7 @@ import { LuCircleUserRound } from "react-icons/lu";
 import { LuCalendarDays, LuPlus, LuMenu } from "react-icons/lu";
 import { useAppStore } from "../store/app.store";
 import { DatePicker } from "./DatePicker";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Sidebar } from "./Sidebar";
 import { LucideHouse } from "lucide-react";
 
@@ -17,6 +17,10 @@ export const Navbar = () => {
   const setDate = useAppStore((state) => state.setDate);
   const [openCalendar, setOpenCalendar] = useState(false);
   const [openSideBar, setOpenSideBar] = useState(false);
+
+  useEffect(() => {
+    setOpenSideBar(false);
+  }, [pathname]);
 
   return (
     <nav className="absolute top-0 w-full h-14 lg:h-18 py-2 lg:py-3 px-3 lg:px-6 flex justify-between items-center border-b border-b-primary/10">
@@ -35,7 +39,7 @@ export const Navbar = () => {
               className="size-6 lg:size-7 active:scale-95 cursor-pointer text-blue-400 lg:text-blue-500"
             />
           ) : (
-            <div className="flex gap-x-3 items-center lg:gap-x-4">
+            <div className="flex gap-x-3 items-center lg:gap-x-4 will-change-transform">
               {pathname === `/${client.id}` ? (
                 <>
                   {sessionId && (
@@ -61,12 +65,11 @@ export const Navbar = () => {
                 />
               )}
 
-              <Sidebar open={openSideBar} setOpen={setOpenSideBar}>
-                <LuMenu
-                  onClick={() => setOpenSideBar(true)}
-                  className="size-6 lg:size-7 active:scale-95 cursor-pointer text-blue-400 lg:text-blue-500"
-                />
-              </Sidebar>
+              <LuMenu
+                onClick={() => setOpenSideBar(true)}
+                className="size-6 lg:size-7 active:scale-95 cursor-pointer text-blue-400 lg:text-blue-500"
+              />
+              <Sidebar open={openSideBar} setOpen={setOpenSideBar} />
             </div>
           )}
         </div>

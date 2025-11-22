@@ -16,7 +16,7 @@ export const CategoryArea = ({
   const filteredExercises = useAppStore((state) => state.filteredExercises);
   const setExercise = useAppStore((state) => state.setExercise);
   return (
-    <ScrollArea className="h-[90%] w-full my-4 pb-8 lg:pb-4 rounded-md">
+    <ScrollArea className="h-[90%] w-full my-4 pb-8 lg:pb-12 rounded-md">
       <div className="flex flex-col items-center">
         {filteredExercises.length > 0
           ? filteredExercises.map((exercise) => (

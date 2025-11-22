@@ -21,12 +21,14 @@ export interface Workout {
   createdAt: Date;
   exerciseId: Exercise;
   sets: Set[];
+  order?: number;
 }
 
 export interface Set {
   reps: number;
   weight: number;
   _id: string;
+  createdAt?: Date;
 }
 
 export type GraphResponse =
@@ -50,4 +52,22 @@ export interface StrengthResponse {
   load: number;
   weight: number;
   reps: number;
+}
+
+export type RecordSet = Set | null;
+
+export interface Routine {
+  _id: string;
+  name: string;
+  exercises: RoutineExercise[];
+  userId: string;
+  description?: string;
+  createdAt: Date;
+}
+
+interface RoutineExercise {
+  exerciseId: string;
+  order: number;
+  sets: number;
+  _id: string;
 }
