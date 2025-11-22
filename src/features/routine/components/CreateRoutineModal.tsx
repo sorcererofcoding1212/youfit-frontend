@@ -99,6 +99,7 @@ export const CreateRoutineModal = ({
         return;
       }
       toast.success("Routine created!");
+      clearValues();
       setOpen(false);
       refetch();
     } catch (error) {
