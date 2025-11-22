@@ -13,47 +13,59 @@ import { useAppStore } from "../../../store/app.store";
 import axios from "../../../lib/axios";
 import { convertToServerDate } from "../../../lib/utils";
 import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
+import { useUserStore } from "../../../store/user.store";
 
 interface RoutineModalProps {
   open: boolean;
   setOpen: (val: boolean) => void;
+  refetch?: () => Promise<void>;
 }
 
-export const RoutineModal = ({ open, setOpen }: RoutineModalProps) => {
+export const RoutineModal = ({ open, setOpen, refetch }: RoutineModalProps) => {
   const { routines, fetching } = useRoutines();
   const sessionId = useAppStore((state) => state.sessionId);
+  const setSessionId = useAppStore((state) => state.setSessionId);
   const date = useAppStore((state) => state.date);
+  const navigate = useNavigate();
+  const client = useUserStore((state) => state.client);
 
   const createWorkout = async (routineId: string) => {
-    if (!sessionId) {
-      const response = await axios.post(
-        `/app/session/${convertToServerDate(date)}`
-      );
-      if (!response.data.success) {
-        toast.error("Some error occured");
-        return;
-      }
-      const { data } = await axios.post(
-        `/app/routine/${routineId}/${response.data.session._id}`
-      );
+    try {
+      if (!sessionId) {
+        const response = await axios.post(
+          `/app/session/${convertToServerDate(date)}`
+        );
+        if (!response.data.success) {
+          toast.error("Some error occured");
+          return;
+        }
+        const { data } = await axios.post(
+          `/app/routine/${routineId}/${response.data.session._id}`
+        );
 
-      if (!data.success) {
-        toast.error(data.msg || "Some error occured");
-        return;
-      }
-      toast.success("Workout created");
-      setOpen(false);
-    } else {
-      const { data } = await axios.post(
-        `/app/routine/${routineId}/${sessionId}`
-      );
+        if (!data.success) {
+          toast.error(data.msg || "Some error occured");
+          return;
+        }
+        setSessionId(response.data.session._id);
+        toast.success("Workout created");
+        setOpen(false);
+      } else {
+        const { data } = await axios.post(
+          `/app/routine/${routineId}/${sessionId}`
+        );
 
-      if (!data.success) {
-        toast.error(data.msg || "Some error occured");
-        return;
+        if (!data.success) {
+          toast.error(data.msg || "Some error occured");
+          return;
+        }
+        if (refetch) refetch();
+        toast.success("Workout created");
+        setOpen(false);
       }
-      toast.success("Workout created");
-      setOpen(false);
+    } catch (error) {
+      toast.error("Some error occured");
     }
   };
   return (
@@ -69,6 +81,10 @@ export const RoutineModal = ({ open, setOpen }: RoutineModalProps) => {
           {routines.length < 1 ? (
             <div className="flex justify-center pb-20 h-full items-center">
               <Button
+                onClick={() => {
+                  if (!client) return;
+                  navigate(`/${client.id}/routines`);
+                }}
                 className="bg-blue-400 px-3 lg:bg-blue-500 lg:hover:bg-blue-500/90"
                 size={"card"}
               >

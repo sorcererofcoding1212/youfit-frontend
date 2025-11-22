@@ -1,20 +1,23 @@
 import { useState } from "react";
 import { useCategories } from "../../workout/hooks/useCategories";
-import { ScrollArea } from "../../../components/ui/scroll-area";
 import { useExercise } from "../../exercise/hooks/useExercise";
+import { ScrollArea } from "../../../components/ui/scroll-area";
 import { ModalLoader } from "../../../components/ModalLoader";
+import { RoutineExerciseSelectorModalExerciseOption } from "./RoutineExerciseSelectorModalExerciseOption";
 
-interface ExerciseSelectorModalOptionsProps {
-  setExerciseId: (val: string) => void;
-  setExerciseName: (val: string) => void;
+interface RoutineExerciseSelectorModalOptionsProps {
   setOpen: (val: boolean) => void;
+  addRoutineExercise: (
+    exerciseId: string,
+    sets: number,
+    exerciseName: string
+  ) => void;
 }
 
-export const ExerciseSelectorModalOptions = ({
-  setExerciseId,
+export const RoutineExerciseSelectorModalOptions = ({
   setOpen,
-  setExerciseName,
-}: ExerciseSelectorModalOptionsProps) => {
+  addRoutineExercise,
+}: RoutineExerciseSelectorModalOptionsProps) => {
   const [categoryId, setCategoryId] = useState<string | undefined>();
 
   const { categories, loading } = useCategories();
@@ -44,17 +47,11 @@ export const ExerciseSelectorModalOptions = ({
             <ModalLoader />
           ) : (
             exercises.map((exercise) => (
-              <div
-                onClick={() => {
-                  setExerciseId(exercise._id);
-                  setExerciseName(exercise.name);
-                  setOpen(false);
-                }}
-                className="px-6 w-[90%] mx-auto cursor-pointer my-2 flex items-center gap-x-3 lg:gap-x-4 lg:hover:scale-[99%] transition-all py-3 font-semibold opacity-75 shadow-sm rounded border-[0.5] lg:border"
-                key={exercise._id}
-              >
-                {exercise.name}
-              </div>
+              <RoutineExerciseSelectorModalExerciseOption
+                exercise={exercise}
+                setOpen={setOpen}
+                addRoutineExercise={addRoutineExercise}
+              />
             ))
           )}
         </ScrollArea>

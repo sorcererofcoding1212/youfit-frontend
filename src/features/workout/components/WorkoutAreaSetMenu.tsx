@@ -24,7 +24,6 @@ export const WorkoutAreaSetMenu = ({
   workoutId,
   refetch,
 }: WorkoutAreaSetMenuProps) => {
-  console.log(workoutId);
   const setEditSet = useAppStore((state) => state.setEditSet);
   const [openEditModal, setEditOpenModal] = useState(false);
 

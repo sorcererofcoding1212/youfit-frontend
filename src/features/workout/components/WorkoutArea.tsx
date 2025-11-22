@@ -37,7 +37,7 @@ export const WorkoutArea = () => {
   }
 
   if (workouts.length === 0 && !isFetching) {
-    return <EmptyArea />;
+    return <EmptyArea refetch={refetch} />;
   }
 
   let index = 0;

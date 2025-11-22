@@ -4,7 +4,11 @@ import { WorkoutAdder } from "./WorkoutAdder";
 import { RoutineModal } from "../../routine/components/RoutineModal";
 import { useAppStore } from "../../../store/app.store";
 
-export const EmptyArea = () => {
+interface EmptyAreaProps {
+  refetch?: () => Promise<void>;
+}
+
+export const EmptyArea = ({ refetch }: EmptyAreaProps) => {
   const [openRoutineModal, setOpenRoutineModal] = useState(false);
   const date = useAppStore((state) => state.date);
   return (
@@ -26,7 +30,11 @@ export const EmptyArea = () => {
       <div className="absolute top-[50%] lg:top-[60%] left-[50%] w-full -translate-x-[50%] -translate-y-[40%]">
         <WorkoutAdder date={date} />
       </div>
-      <RoutineModal open={openRoutineModal} setOpen={setOpenRoutineModal} />
+      <RoutineModal
+        open={openRoutineModal}
+        setOpen={setOpenRoutineModal}
+        refetch={refetch}
+      />
     </div>
   );
 };

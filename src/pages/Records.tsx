@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { PageWrapper } from "../components/PageWrapper";
-import { ExerciseSelector } from "../features/statistics/components/ExerciseSelector";
+import { ExerciseSelector } from "../components/ExerciseSelector";
 import { cn } from "../lib/utils";
 import axios from "../lib/axios";
 import { toast } from "sonner";

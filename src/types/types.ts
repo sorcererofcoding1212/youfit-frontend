@@ -65,9 +65,9 @@ export interface Routine {
   createdAt: Date;
 }
 
-interface RoutineExercise {
+export interface RoutineExercise {
   exerciseId: string;
   order: number;
   sets: number;
-  _id: string;
+  exerciseName: string;
 }

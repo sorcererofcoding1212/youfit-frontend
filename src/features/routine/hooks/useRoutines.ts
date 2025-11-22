@@ -28,5 +28,5 @@ export const useRoutines = () => {
     fetchUserRoutines();
   }, []);
 
-  return { routines, fetching };
+  return { routines, fetching, refetch: fetchUserRoutines };
 };

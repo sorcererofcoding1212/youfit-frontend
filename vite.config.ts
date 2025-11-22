@@ -14,6 +14,6 @@ export default defineConfig({
   base: "/",
   server: {
     port: 5173,
-    host: "192.168.29.179",
+    host: "192.168.29.178",
   },
 });

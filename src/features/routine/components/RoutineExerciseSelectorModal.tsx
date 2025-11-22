@@ -3,37 +3,36 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "../../../components/ui/dialog";
-import { ExerciseSelectorModalOptions } from "./ExerciseSelectorModalOptions";
+import { RoutineExerciseSelectorModalOptions } from "./RoutineExerciseSelectorModalOptions";
 
-interface ExerciseSelectorModalProps {
+interface RoutineExerciseSelectorModalProps {
   open: boolean;
   setOpen: (val: boolean) => void;
-  setExerciseId: (val: string) => void;
-  setExerciseName: (val: string) => void;
+  addRoutineExercise: (
+    exerciseId: string,
+    sets: number,
+    exerciseName: string
+  ) => void;
 }
 
-export const ExerciseSelectorModal = ({
+export const RoutineExerciseSelectorModal = ({
   open,
   setOpen,
-  setExerciseId,
-  setExerciseName,
-}: ExerciseSelectorModalProps) => {
+  addRoutineExercise,
+}: RoutineExerciseSelectorModalProps) => {
   return (
     <div className="h-full">
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogTrigger asChild>Open</DialogTrigger>
         <DialogContent className="h-[90%] py-6">
           <DialogHeader>
             <DialogTitle className="text-center text-lg lg:text-xl text-blue-400 lg:text-blue-500">
               Select Exercise
             </DialogTitle>
           </DialogHeader>
-          <ExerciseSelectorModalOptions
-            setExerciseId={setExerciseId}
+          <RoutineExerciseSelectorModalOptions
             setOpen={setOpen}
-            setExerciseName={setExerciseName}
+            addRoutineExercise={addRoutineExercise}
           />
         </DialogContent>
       </Dialog>
