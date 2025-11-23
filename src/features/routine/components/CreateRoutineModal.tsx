@@ -18,13 +18,13 @@ import {
 import { Input } from "../../../components/ui/input";
 import { RoutineExerciseAdder } from "./RoutineExerciseAdder";
 import type { RoutineExercise } from "../../../types/types";
-import { ScrollArea } from "../../../components/ui/scroll-area";
 import { LuTrash2 } from "react-icons/lu";
 import { Button } from "../../../components/ui/button";
 import { useState } from "react";
 import { toast } from "sonner";
 import axios from "../../../lib/axios";
 import { cn } from "../../../lib/utils";
+import { InteractiveScrollArea } from "../../../components/InteractiveScrollArea";
 
 interface CreateRoutineModalProps {
   open: boolean;
@@ -116,7 +116,7 @@ export const CreateRoutineModal = ({
         clearValues();
       }}
     >
-      <DialogContent className="h-[70%] lg:h-[90%] py-6">
+      <DialogContent className="h-[80%] lg:h-[90%] py-6">
         <DialogHeader>
           <DialogTitle className="text-center text-lg lg:text-xl text-blue-400 lg:text-blue-500">
             Create new Routine
@@ -161,7 +161,7 @@ export const CreateRoutineModal = ({
             </form>
           </Form>
         </div>
-        <ScrollArea className="h-[30%] lg:h-[40%] mt-6">
+        <InteractiveScrollArea className="h-[30%] lg:h-[40%] mt-6">
           {routineExercises.length > 0 &&
             routineExercises
               .sort((a, b) => a.order - b.order)
@@ -183,7 +183,7 @@ export const CreateRoutineModal = ({
                   </div>
                 </div>
               ))}
-        </ScrollArea>
+        </InteractiveScrollArea>
         <RoutineExerciseAdder addRoutineExercise={addRoutineExercise} />
         <Button
           onClick={createRoutine}

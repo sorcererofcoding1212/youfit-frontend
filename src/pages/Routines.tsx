@@ -1,12 +1,11 @@
 import { useState } from "react";
-import { ModalLoader } from "../components/ModalLoader";
 import { PageWrapper } from "../components/PageWrapper";
 import { Button } from "../components/ui/button";
-import { ScrollArea } from "../components/ui/scroll-area";
 import { CreateRoutineModal } from "../features/routine/components/CreateRoutineModal";
 import { useRoutines } from "../features/routine/hooks/useRoutines";
 import type { RoutineExercise } from "../types/types";
 import { RoutineList } from "../features/routine/components/RoutineList";
+import { ComponentLoader } from "../components/ComponentLoader";
 
 const RoutinesPage = () => {
   const { routines, fetching, refetch } = useRoutines();
@@ -32,10 +31,12 @@ const RoutinesPage = () => {
             Create a new Routine
           </Button>
         </div>
-        {routines.length > 0 && (
-          <ScrollArea className="mt-10 flex flex-col h-[90%]">
-            {fetching ? <ModalLoader /> : <RoutineList routines={routines} />}
-          </ScrollArea>
+        {fetching ? (
+          <div className="mt-20">
+            <ComponentLoader />
+          </div>
+        ) : (
+          routines.length > 0 && <RoutineList refetch={refetch} routines={routines} />
         )}
         <CreateRoutineModal
           routineExercises={routineExercises}

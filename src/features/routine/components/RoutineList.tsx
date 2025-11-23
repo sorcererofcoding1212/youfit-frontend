@@ -1,19 +1,40 @@
+import { toast } from "sonner";
+import { InteractiveScrollArea } from "../../../components/InteractiveScrollArea";
 import {
   Accordion,
   AccordionItem,
   AccordionTrigger,
   AccordionContent,
 } from "../../../components/ui/accordion";
-import { ScrollArea } from "../../../components/ui/scroll-area";
 import type { Routine } from "../../../types/types";
+import { FaTrash } from "react-icons/fa";
+import { useState } from "react";
+import axios from "../../../lib/axios";
 
 interface RoutineListProps {
   routines: Routine[];
+  refetch: () => void;
 }
 
-export const RoutineList = ({ routines }: RoutineListProps) => {
+export const RoutineList = ({ routines, refetch }: RoutineListProps) => {
+  const [isDeleting, setIsDeleting] = useState(false);
+  const deleteRoutine = async (routineId: string) => {
+    try {
+      setIsDeleting(true);
+      const response = await axios.delete(`/app/routine/${routineId}`);
+      if (!response.data.success) {
+        toast.error(response.data.msg || "Some error occured");
+      }
+      toast.success("Routine deleted");
+      refetch();
+    } catch (error) {
+      toast.error("Some error occured");
+    } finally {
+      setIsDeleting(false);
+    }
+  };
   return (
-    <ScrollArea className="h-[60vh] lg:h-[50vh] px-4">
+    <InteractiveScrollArea className="h-[60vh] mt-10 lg:h-[50vh] px-4">
       <Accordion
         type="single"
         collapsible
@@ -37,10 +58,19 @@ export const RoutineList = ({ routines }: RoutineListProps) => {
                   {ex.exerciseName} — {ex.sets} sets
                 </div>
               ))}
+              <div role="button" className="mt-3 flex w-full justify-end">
+                <FaTrash
+                  onClick={() => {
+                    if (isDeleting) return;
+                    deleteRoutine(routine._id);
+                  }}
+                  className="text-red-500 lg:hover:cursor-pointer"
+                />
+              </div>
             </AccordionContent>
           </AccordionItem>
         ))}
       </Accordion>
-    </ScrollArea>
+    </InteractiveScrollArea>
   );
 };

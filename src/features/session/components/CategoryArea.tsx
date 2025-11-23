@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import { ScrollArea } from "../../../components/ui/scroll-area";
 import type { Category } from "../../../types/types";
 import { useAppStore } from "../../../store/app.store";
+import { InteractiveScrollArea } from "../../../components/InteractiveScrollArea";
 
 interface CategoryAreaProps {
   categories: Category[];
@@ -16,7 +16,7 @@ export const CategoryArea = ({
   const filteredExercises = useAppStore((state) => state.filteredExercises);
   const setExercise = useAppStore((state) => state.setExercise);
   return (
-    <ScrollArea className="h-[90%] w-full my-4 pb-8 lg:pb-12 rounded-md">
+    <InteractiveScrollArea className="h-[90%] w-full my-4 pb-8 lg:pb-12 rounded-md">
       <div className="flex flex-col items-center">
         {filteredExercises.length > 0
           ? filteredExercises.map((exercise) => (
@@ -41,6 +41,6 @@ export const CategoryArea = ({
               </div>
             ))}
       </div>
-    </ScrollArea>
+    </InteractiveScrollArea>
   );
 };

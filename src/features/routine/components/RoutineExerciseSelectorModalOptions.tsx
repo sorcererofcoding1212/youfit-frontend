@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useCategories } from "../../workout/hooks/useCategories";
 import { useExercise } from "../../exercise/hooks/useExercise";
-import { ScrollArea } from "../../../components/ui/scroll-area";
 import { ModalLoader } from "../../../components/ModalLoader";
 import { RoutineExerciseSelectorModalExerciseOption } from "./RoutineExerciseSelectorModalExerciseOption";
+import { InteractiveScrollArea } from "../../../components/InteractiveScrollArea";
 
 interface RoutineExerciseSelectorModalOptionsProps {
   setOpen: (val: boolean) => void;
@@ -26,7 +26,7 @@ export const RoutineExerciseSelectorModalOptions = ({
   return (
     <div className="h-full">
       {!categoryId ? (
-        <ScrollArea className="mt-10 flex flex-col h-[90%]">
+        <InteractiveScrollArea className="mt-10 flex flex-col h-[90%]">
           {loading ? (
             <ModalLoader />
           ) : (
@@ -40,9 +40,9 @@ export const RoutineExerciseSelectorModalOptions = ({
               </div>
             ))
           )}
-        </ScrollArea>
+        </InteractiveScrollArea>
       ) : (
-        <ScrollArea className="mt-10 flex flex-col h-[90%]">
+        <InteractiveScrollArea className="mt-10 flex flex-col h-[90%]">
           {isLoading ? (
             <ModalLoader />
           ) : (
@@ -54,7 +54,7 @@ export const RoutineExerciseSelectorModalOptions = ({
               />
             ))
           )}
-        </ScrollArea>
+        </InteractiveScrollArea>
       )}
     </div>
   );

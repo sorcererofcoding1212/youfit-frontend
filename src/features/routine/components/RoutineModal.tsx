@@ -7,7 +7,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "../../../components/ui/dialog";
-import { ScrollArea } from "../../../components/ui/scroll-area";
 import { useRoutines } from "../hooks/useRoutines";
 import { useAppStore } from "../../../store/app.store";
 import axios from "../../../lib/axios";
@@ -15,6 +14,7 @@ import { convertToServerDate } from "../../../lib/utils";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import { useUserStore } from "../../../store/user.store";
+import { InteractiveScrollArea } from "../../../components/InteractiveScrollArea";
 
 interface RoutineModalProps {
   open: boolean;
@@ -92,7 +92,7 @@ export const RoutineModal = ({ open, setOpen, refetch }: RoutineModalProps) => {
               </Button>
             </div>
           ) : (
-            <ScrollArea className="mt-10 flex flex-col h-[90%]">
+            <InteractiveScrollArea className="mt-10 flex flex-col h-[90%]">
               {fetching ? (
                 <ModalLoader />
               ) : (
@@ -108,7 +108,7 @@ export const RoutineModal = ({ open, setOpen, refetch }: RoutineModalProps) => {
                   </div>
                 ))
               )}
-            </ScrollArea>
+            </InteractiveScrollArea>
           )}
         </DialogContent>
       </Dialog>

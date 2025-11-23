@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { ScrollArea } from "../../../components/ui/scroll-area";
 import { cn } from "../../../lib/utils";
 import { useAppStore } from "../../../store/app.store";
 import type { Set } from "../../../types/types";
@@ -11,6 +10,7 @@ import { WorkoutAreaSetInformation } from "./WorkoutAreaSetInformation";
 import { WorkoutAreaSetMenu } from "./WorkoutAreaSetMenu";
 import { PageLoader } from "../../../components/PageLoader";
 import { Button } from "../../../components/ui/button";
+import { InteractiveScrollArea } from "../../../components/InteractiveScrollArea";
 
 export const WorkoutArea = () => {
   const sessionId = useAppStore((state) => state.sessionId);
@@ -45,7 +45,7 @@ export const WorkoutArea = () => {
   return (
     <div className="h-full py-4">
       <>
-        <ScrollArea className="w-full h-[90%]">
+        <InteractiveScrollArea className="w-full h-[90%]">
           {workouts
             .sort((a, b) => (a.order || index++) - (b.order || index++))
             .map((workout) => {
@@ -120,7 +120,7 @@ export const WorkoutArea = () => {
                 </div>
               );
             })}
-        </ScrollArea>
+        </InteractiveScrollArea>
         <AddExerciseModal
           exerciseDate={date}
           openModal={openModal}
