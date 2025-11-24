@@ -15,6 +15,7 @@ import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import { useUserStore } from "../../../store/user.store";
 import { InteractiveScrollArea } from "../../../components/InteractiveScrollArea";
+import { useState } from "react";
 
 interface RoutineModalProps {
   open: boolean;
@@ -29,9 +30,11 @@ export const RoutineModal = ({ open, setOpen, refetch }: RoutineModalProps) => {
   const date = useAppStore((state) => state.date);
   const navigate = useNavigate();
   const client = useUserStore((state) => state.client);
+  const [creatingWorkout, setCreatingWorkout] = useState(false);
 
   const createWorkout = async (routineId: string) => {
     try {
+      setCreatingWorkout(true);
       if (!sessionId) {
         const response = await axios.post(
           `/app/session/${convertToServerDate(date)}`
@@ -66,6 +69,8 @@ export const RoutineModal = ({ open, setOpen, refetch }: RoutineModalProps) => {
       }
     } catch (error) {
       toast.error("Some error occured");
+    } finally {
+      setCreatingWorkout(false);
     }
   };
   return (
@@ -93,7 +98,7 @@ export const RoutineModal = ({ open, setOpen, refetch }: RoutineModalProps) => {
             </div>
           ) : (
             <InteractiveScrollArea className="mt-10 flex flex-col h-[90%]">
-              {fetching ? (
+              {fetching || creatingWorkout ? (
                 <ModalLoader />
               ) : (
                 routines.map((routine) => (

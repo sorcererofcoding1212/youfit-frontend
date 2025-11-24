@@ -50,7 +50,7 @@ export const RoutineList = ({ routines, refetch }: RoutineListProps) => {
               {routine.name}
             </AccordionTrigger>
             <AccordionContent className="pl-4 space-y-2">
-              {routine.exercises.map((ex) => (
+              {routine.exercises.reverse().map((ex) => (
                 <div
                   key={ex.exerciseId}
                   className="text-sm lg:text-blue-600 text-blue-500 opacity-80 border-b pb-2 lg:pb-3 py-3"

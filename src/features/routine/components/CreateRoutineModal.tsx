@@ -90,7 +90,7 @@ export const CreateRoutineModal = ({
 
       const response = await axios.post("/app/routine", {
         name,
-        exercises: routineExercises,
+        exercises: routineExercises.reverse(),
         description,
       });
 
