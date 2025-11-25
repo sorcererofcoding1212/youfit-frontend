@@ -78,42 +78,50 @@ export const RoutineModal = ({ open, setOpen, refetch }: RoutineModalProps) => {
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>Open</DialogTrigger>
         <DialogContent className="h-[70%] lg:h-[80%] py-6">
-          <DialogHeader>
-            <DialogTitle className="text-center text-lg lg:text-xl text-blue-400 lg:text-blue-500">
-              {routines.length < 1 ? "No Routines Available" : "Select Routine"}
-            </DialogTitle>
-          </DialogHeader>
-          {routines.length < 1 ? (
-            <div className="flex justify-center pb-20 h-full items-center">
-              <Button
-                onClick={() => {
-                  if (!client) return;
-                  navigate(`/${client.id}/routines`);
-                }}
-                className="bg-blue-400 px-3 lg:bg-blue-500 lg:hover:bg-blue-500/90"
-                size={"card"}
-              >
-                Create a new Routine
-              </Button>
-            </div>
+          {fetching ? (
+            <ModalLoader />
           ) : (
-            <InteractiveScrollArea className="mt-10 flex flex-col h-[90%]">
-              {fetching || creatingWorkout ? (
-                <ModalLoader />
-              ) : (
-                routines.map((routine) => (
-                  <div
+            <>
+              <DialogHeader>
+                <DialogTitle className="text-center text-lg lg:text-xl text-blue-400 lg:text-blue-500">
+                  {routines.length < 1
+                    ? "No Routines Available"
+                    : "Select Routine"}
+                </DialogTitle>
+              </DialogHeader>
+              {routines.length < 1 ? (
+                <div className="flex justify-center pb-20 h-full items-center">
+                  <Button
                     onClick={() => {
-                      createWorkout(routine._id);
+                      if (!client) return;
+                      navigate(`/${client.id}/routines`);
                     }}
-                    className="px-6 w-[90%] mx-auto cursor-pointer my-2 flex items-center gap-x-3 lg:gap-x-4 lg:hover:scale-[99%] transition-all py-3 font-semibold opacity-75 shadow-sm rounded border-[0.5] lg:border"
-                    key={routine._id}
+                    className="bg-blue-400 px-3 lg:bg-blue-500 lg:hover:bg-blue-500/90"
+                    size={"card"}
                   >
-                    {routine.name}
-                  </div>
-                ))
+                    Create a new Routine
+                  </Button>
+                </div>
+              ) : (
+                <InteractiveScrollArea className="mt-10 flex flex-col h-[90%]">
+                  {creatingWorkout ? (
+                    <ModalLoader />
+                  ) : (
+                    routines.map((routine) => (
+                      <div
+                        onClick={() => {
+                          createWorkout(routine._id);
+                        }}
+                        className="px-6 w-[90%] mx-auto cursor-pointer my-2 flex items-center gap-x-3 lg:gap-x-4 lg:hover:scale-[99%] transition-all py-3 font-semibold opacity-75 shadow-sm rounded border-[0.5] lg:border"
+                        key={routine._id}
+                      >
+                        {routine.name}
+                      </div>
+                    ))
+                  )}
+                </InteractiveScrollArea>
               )}
-            </InteractiveScrollArea>
+            </>
           )}
         </DialogContent>
       </Dialog>
