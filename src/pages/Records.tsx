@@ -4,7 +4,7 @@ import { ExerciseSelector } from "../components/ExerciseSelector";
 import { cn } from "../lib/utils";
 import axios from "../lib/axios";
 import { toast } from "sonner";
-import type { RecordSet } from "../types/types";
+import type { RecordSetResponse } from "../types/types";
 import { ComponentLoader } from "../components/ComponentLoader";
 
 const RecordsPage = () => {
@@ -12,7 +12,7 @@ const RecordsPage = () => {
   const [exerciseName, setExerciseName] = useState("");
   const [openExerciseSelectorModal, setOpenExerciseSelectorModal] =
     useState(false);
-  const [recordSet, setRecordSet] = useState<RecordSet>(null);
+  const [recordSetData, setRecordSetData] = useState<RecordSetResponse>(null);
   const [loading, setLoading] = useState(false);
 
   const getExerciseRecordSet = async () => {
@@ -21,10 +21,10 @@ const RecordsPage = () => {
       if (!exerciseId || loading) return;
       const response = await axios.get(`/app/record/${exerciseId}`);
       if (!response.data.success) {
-        setRecordSet(null);
+        setRecordSetData(null);
         return;
       }
-      setRecordSet(response.data.set);
+      setRecordSetData(response.data.recordSetDetails);
     } catch (error) {
       console.log(error);
       toast.error("Some error occured");
@@ -56,22 +56,27 @@ const RecordsPage = () => {
         >
           {loading ? (
             <ComponentLoader />
-          ) : recordSet ? (
+          ) : recordSetData ? (
             <div className="flex flex-col justify-center text-lg lg:text-xl items-center gap-y-1 lg:gap-y-2 text-blue-400">
               <div className="font-semibold">
-                Personal Record : {recordSet.weight}kg x {recordSet.reps}reps
+                Personal Record : {recordSetData.recordSet.weight}kg x{" "}
+                {recordSetData.recordSet.reps}reps
               </div>
               <div className="text-sm lg:text-base text-center font-semibold">
                 Lifted on :{" "}
-                {recordSet.createdAt
+                {recordSetData.recordSet.createdAt
                   ? (() => {
-                      const d = new Date(recordSet.createdAt);
+                      const d = new Date(recordSetData.recordSet.createdAt);
                       const day = String(d.getDate()).padStart(2, "0");
                       const month = String(d.getMonth() + 1).padStart(2, "0");
                       const year = d.getFullYear();
                       return `${day}-${month}-${year}`;
                     })()
                   : ""}
+              </div>
+              <div className="text-sm lg:text-base text-center font-semibold">
+                Estimated One Rep Max :{" "}
+                {recordSetData.estimatedOneRepMax.toFixed(2)}
               </div>
             </div>
           ) : exerciseId ? (

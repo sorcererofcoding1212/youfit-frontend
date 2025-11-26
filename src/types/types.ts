@@ -54,7 +54,10 @@ export interface StrengthResponse {
   reps: number;
 }
 
-export type RecordSet = Set | null;
+export type RecordSetResponse = {
+  recordSet: Set;
+  estimatedOneRepMax: number;
+} | null;
 
 export interface Routine {
   _id: string;
