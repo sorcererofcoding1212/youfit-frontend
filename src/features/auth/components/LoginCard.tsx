@@ -57,7 +57,7 @@ export const LoginCard = () => {
       toast.success("Logged in");
       setClient(response.data.details);
 
-      navigate(`/${response.data.details.id}`);
+      navigate("/workout");
     } catch (error) {
       console.log(error);
       setError("Internal server error");

@@ -53,7 +53,7 @@ const App = () => {
                 !client ? (
                   <LoginPage />
                 ) : (
-                  <Navigate to={`/${client.id}`} replace={true} />
+                  <Navigate to={"/workout"} replace={true} />
                 )
               }
             />
@@ -63,12 +63,12 @@ const App = () => {
                 !client ? (
                   <RegisterPage />
                 ) : (
-                  <Navigate to={`/${client.id}`} replace={true} />
+                  <Navigate to={"/workout"} replace={true} />
                 )
               }
             />
             <Route
-              path="/:userId"
+              path="/workout"
               element={
                 client ? <UserPage /> : <Navigate to={"/login"} replace />
               }

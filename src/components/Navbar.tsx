@@ -8,6 +8,7 @@ import { DatePicker } from "./DatePicker";
 import { useEffect, useState } from "react";
 import { Sidebar } from "./Sidebar";
 import { LucideHouse } from "lucide-react";
+import { IoMdArrowBack } from "react-icons/io";
 
 export const Navbar = () => {
   const client = useUserStore((state) => state.client);
@@ -33,14 +34,20 @@ export const Navbar = () => {
           {pathname === "/" ? (
             <LuCircleUserRound
               onClick={() => {
-                navigate(`/${client.id}`);
+                navigate("/workout");
               }}
               role="button"
               className="size-6 lg:size-7 active:scale-95 cursor-pointer text-blue-400 lg:text-blue-500"
             />
           ) : (
             <div className="flex gap-x-3 items-center lg:gap-x-4 will-change-transform">
-              {pathname === `/${client.id}` ? (
+              {pathname !== "/workout" && (
+                <IoMdArrowBack
+                  onClick={() => navigate(-1)}
+                  className="size-6 lg:size-7 active:scale-95 cursor-pointer text-blue-400 lg:text-blue-500"
+                />
+              )}
+              {pathname === "/workout" ? (
                 <>
                   {sessionId && (
                     <LuPlus
@@ -60,7 +67,7 @@ export const Navbar = () => {
                 </>
               ) : (
                 <LucideHouse
-                  onClick={() => navigate(`/${client.id}`)}
+                  onClick={() => navigate("/workout")}
                   className="size-6 lg:size-7 active:scale-95 cursor-pointer text-blue-400 lg:text-blue-500"
                 />
               )}

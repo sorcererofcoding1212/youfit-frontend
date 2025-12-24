@@ -3,11 +3,11 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle } from "./ui/sheet";
 import type { IconType } from "react-icons/lib";
 import {
   LuLogOut,
-  LuCircleUser,
   LuChartPie,
   LuLayoutTemplate,
   LuTrophy,
 } from "react-icons/lu";
+import { PiBarbellDuotone } from "react-icons/pi";
 import { DottedSeperator } from "./DottedSeperator";
 import { useLocation, useNavigate } from "react-router-dom";
 import { cn } from "../lib/utils";
@@ -34,9 +34,9 @@ export const Sidebar = ({ open, setOpen }: SidebarProps) => {
 
   const routes: Route[] = [
     {
-      href: `/${client?.id}`,
-      label: "Profile",
-      icon: LuCircleUser,
+      href: "/workout",
+      label: "Workout",
+      icon: PiBarbellDuotone,
     },
     {
       href: `/${client?.id}/statistics`,
@@ -88,7 +88,7 @@ export const Sidebar = ({ open, setOpen }: SidebarProps) => {
       <SheetContent className="py-4 pt-10">
         <SheetHeader className="text-center">
           <SheetTitle className="font-semibold text-blue-500 text-2xl opacity-85">
-            My Profile
+            Fitness Hub
           </SheetTitle>
         </SheetHeader>
         <div className="px-4">
