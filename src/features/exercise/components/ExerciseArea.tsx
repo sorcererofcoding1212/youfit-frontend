@@ -1,4 +1,4 @@
-import { ScrollArea } from "../../../components/ui/scroll-area";
+import { InteractiveScrollArea } from "../../../components/InteractiveScrollArea";
 import { useAppStore } from "../../../store/app.store";
 import type { Exercise } from "../../../types/types";
 
@@ -14,7 +14,7 @@ export const ExerciseArea = ({
   const setExercise = useAppStore((state) => state.setExercise);
   const filteredExercises = useAppStore((state) => state.filteredExercises);
   return (
-    <ScrollArea className="h-[90%] w-full mt-4 pb-8 lg:pb-4 rounded-md">
+    <InteractiveScrollArea className="h-[90%] w-full mt-4 pb-8 lg:pb-12 rounded-md">
       <div className="flex flex-col items-center">
         {filteredExercises.length > 0
           ? filteredExercises.map((exercise) => (
@@ -42,6 +42,6 @@ export const ExerciseArea = ({
               </div>
             ))}
       </div>
-    </ScrollArea>
+    </InteractiveScrollArea>
   );
 };

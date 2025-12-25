@@ -15,7 +15,7 @@ import {
 import type { StrengthResponse } from "../../../types/types";
 import { DurationOptions } from "./DurationOptions";
 import { PageLoader } from "../../../components/PageLoader";
-import { ExerciseSelector } from "./ExerciseSelector";
+import { ExerciseSelector } from "../../../components/ExerciseSelector";
 import { cn } from "../../../lib/utils";
 import { MobileGraphHeader } from "./MobileGraphHeader";
 

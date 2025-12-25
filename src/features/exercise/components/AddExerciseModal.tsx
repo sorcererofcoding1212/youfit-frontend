@@ -68,6 +68,10 @@ export const AddExerciseModal = ({
         return;
       }
 
+      if (response.data.isRecordSet) {
+        toast.success("New personal best!");
+      }
+
       if (refetch) refetch();
       setExercise(null);
       setOpenModal(false);

@@ -59,7 +59,7 @@ export const RegisterCard = () => {
       toast.success("User registered");
       setClient(response.data.details);
 
-      navigate(`/${response.data.details.id}`);
+      navigate("/workout");
     } catch (error) {
       console.log(error);
       setError("Internal server error");

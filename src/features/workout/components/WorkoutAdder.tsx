@@ -4,14 +4,16 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { convertToServerDate } from "../../../lib/utils";
 import { useNavigate } from "react-router-dom";
+import { useAppStore } from "../../../store/app.store";
 
 interface WorkoutAdderProps {
   date: Date;
-  setSessionId: (val: string) => void;
 }
 
-export const WorkoutAdder = ({ date, setSessionId }: WorkoutAdderProps) => {
+export const WorkoutAdder = ({ date }: WorkoutAdderProps) => {
   const [isAdding, setIsAdding] = useState(false);
+  const sessionId = useAppStore((state) => state.sessionId);
+  const setSessionId = useAppStore((state) => state.setSessionId);
   const navigate = useNavigate();
 
   const createNewWorkout = async () => {
@@ -47,7 +49,7 @@ export const WorkoutAdder = ({ date, setSessionId }: WorkoutAdderProps) => {
         />
       </div>
       <div className="mt-2 opacity-60 text-sm lg:text-base">
-        Start New Workout
+        {sessionId ? "Add Exercise" : "Start New Workout"}
       </div>
     </div>
   );

@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { ScrollArea } from "../../../components/ui/scroll-area";
 import { cn } from "../../../lib/utils";
 import { useAppStore } from "../../../store/app.store";
 import type { Set } from "../../../types/types";
@@ -8,21 +7,20 @@ import { useWorkouts } from "../hooks/useWorkouts";
 import { EmptyArea } from "./EmptyArea";
 import { IoIosTrophy } from "react-icons/io";
 import { WorkoutAreaSetInformation } from "./WorkoutAreaSetInformation";
-import { EditExerciseModal } from "../../exercise/components/EditExerciseModal";
 import { WorkoutAreaSetMenu } from "./WorkoutAreaSetMenu";
 import { PageLoader } from "../../../components/PageLoader";
+import { Button } from "../../../components/ui/button";
+import { InteractiveScrollArea } from "../../../components/InteractiveScrollArea";
 
 export const WorkoutArea = () => {
   const sessionId = useAppStore((state) => state.sessionId);
-  const setSessionId = useAppStore((state) => state.setSessionId);
   const setExercise = useAppStore((state) => state.setExercise);
   const date = useAppStore((state) => state.date);
 
   const [openModal, setOpenModal] = useState(false);
-  const [openEditModal, setEditOpenModal] = useState(false);
 
   if (!sessionId) {
-    return <EmptyArea date={date} setSessionId={setSessionId} />;
+    return <EmptyArea />;
   }
 
   const { isFetching, workouts, refetch } = useWorkouts(sessionId);
@@ -39,21 +37,17 @@ export const WorkoutArea = () => {
   }
 
   if (workouts.length === 0 && !isFetching) {
-    return <EmptyArea date={date} setSessionId={setSessionId} />;
+    return <EmptyArea refetch={refetch} />;
   }
 
   return (
     <div className="h-full py-4">
       <>
-        <ScrollArea className="w-full h-[90%]">
+        <InteractiveScrollArea className="w-full h-[90%]">
           {workouts.map((workout) => {
             let highestLoadSetId = "";
             return (
               <div
-                onClick={() => {
-                  setExercise(workout.exerciseId);
-                  setOpenModal(true);
-                }}
                 key={workout._id}
                 className="w-[90%] lg:w-[40%] mx-auto my-2 mb-4 cursor-pointer rounded shadow-sm py-2 border"
               >
@@ -98,7 +92,6 @@ export const WorkoutArea = () => {
                         <div className="absolute right-[0%]">
                           <WorkoutAreaSetMenu
                             set={set}
-                            setEditOpenModal={setEditOpenModal}
                             workoutId={workout._id}
                             refetch={refetch}
                           />
@@ -106,20 +99,28 @@ export const WorkoutArea = () => {
                       </div>
                     );
                   })}
+                  <div className="mt-4 flex justify-center items-center">
+                    <Button
+                      onClick={() => {
+                        setExercise(workout.exerciseId);
+                        setOpenModal(true);
+                      }}
+                      size={"sm"}
+                      variant={"teritary"}
+                      className="text-xs bg-blue-400 lg:bg-lue-500 lg:text-sm lg:h-9.5 w-20 lg:w-22"
+                    >
+                      Add Set
+                    </Button>
+                  </div>
                 </div>
               </div>
             );
           })}
-        </ScrollArea>
+        </InteractiveScrollArea>
         <AddExerciseModal
           exerciseDate={date}
           openModal={openModal}
           setOpenModal={setOpenModal}
-          refetch={refetch}
-        />
-        <EditExerciseModal
-          openEditModal={openEditModal}
-          setOpenEditModal={setEditOpenModal}
           refetch={refetch}
         />
       </>

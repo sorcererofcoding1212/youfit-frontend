@@ -12,6 +12,8 @@ import SessionPage from "./pages/Session";
 import { Navbar } from "./components/Navbar";
 import ExercisePage from "./pages/Exercise";
 import StatisticsPage from "./pages/Statistics";
+import RecordsPage from "./pages/Records";
+import RoutinesPage from "./pages/Routines";
 
 const App = () => {
   const [loading, setLoading] = useState(false);
@@ -51,7 +53,7 @@ const App = () => {
                 !client ? (
                   <LoginPage />
                 ) : (
-                  <Navigate to={`/${client.id}`} replace={true} />
+                  <Navigate to={"/workout"} replace={true} />
                 )
               }
             />
@@ -61,12 +63,12 @@ const App = () => {
                 !client ? (
                   <RegisterPage />
                 ) : (
-                  <Navigate to={`/${client.id}`} replace={true} />
+                  <Navigate to={"/workout"} replace={true} />
                 )
               }
             />
             <Route
-              path="/:userId"
+              path="/workout"
               element={
                 client ? <UserPage /> : <Navigate to={"/login"} replace />
               }
@@ -87,6 +89,18 @@ const App = () => {
               path="/:userId/statistics"
               element={
                 client ? <StatisticsPage /> : <Navigate to={"/login"} replace />
+              }
+            />
+            <Route
+              path="/:userId/records"
+              element={
+                client ? <RecordsPage /> : <Navigate to={"/login"} replace />
+              }
+            />
+            <Route
+              path="/:userId/routines"
+              element={
+                client ? <RoutinesPage /> : <Navigate to={"/login"} replace />
               }
             />
           </Routes>

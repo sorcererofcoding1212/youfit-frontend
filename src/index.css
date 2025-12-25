@@ -34,6 +34,32 @@
   font-style: normal;
 }
 
+[data-sonner-toast] {
+  background: #3b82f6 !important;
+  color: white !important;
+  border: none !important;
+}
+
+[data-sonner-toast][data-type="success"] {
+  background: #3b82f6 !important;
+  color: white !important;
+}
+
+[data-sonner-toast][data-type="error"] {
+  background: #ef4444 !important;
+  color: white !important;
+}
+
+[data-sonner-toast][data-type="warning"] {
+  background: #f59e0b !important;
+  color: white !important;
+}
+
+[data-sonner-toast][data-type="info"] {
+  background: #22c55e !important;
+  color: white !important;
+}
+
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);

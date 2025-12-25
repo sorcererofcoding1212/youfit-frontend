@@ -62,11 +62,7 @@ const UserPage = () => {
         goToNextDate={goToNextDate}
       />
       <div className="w-full h-full">
-        {sessionId ? (
-          <WorkoutArea />
-        ) : (
-          <EmptyArea date={date} setSessionId={setSessionId} />
-        )}
+        {sessionId ? <WorkoutArea /> : <EmptyArea />}
       </div>
     </PageWrapper>
   );

@@ -16,17 +16,18 @@ import axios from "../../../lib/axios";
 interface EditExerciseModalProps {
   openEditModal: boolean;
   setOpenEditModal: (val: boolean) => void;
+  editWorkoutId: string;
   refetch?: () => void;
 }
 
 export const EditExerciseModal = ({
   openEditModal,
   setOpenEditModal,
+  editWorkoutId,
   refetch,
 }: EditExerciseModalProps) => {
   const setEditSet = useAppStore((state) => state.setEditSet);
   const editSet = useAppStore((state) => state.editSet);
-  const editWorkoutId = useAppStore((state) => state.editWorkoutId);
 
   const [weight, setWeight] = useState(editSet?.weight || 0);
   const [reps, setReps] = useState(editSet?.reps || 0);
@@ -78,6 +79,10 @@ export const EditExerciseModal = ({
       if (!response.data.success) {
         toast.error(response.data.msg || "Internal server error");
         return;
+      }
+
+      if(response.data.isRecordSet) {
+        toast.success("New personal best!")
       }
 
       if (refetch) refetch();
