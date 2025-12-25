@@ -27,6 +27,16 @@ export const InteractiveScrollArea = ({
     return () => viewport.removeEventListener("scroll", checkScroll);
   }, []);
 
+  const scrollToBottom = () => {
+    const viewport = viewportRef.current;
+    if (!viewport) return;
+
+    viewport.scrollTo({
+      top: viewport.scrollHeight,
+      behavior: "smooth",
+    });
+  };
+
   return (
     <ScrollAreaPrimitive.Root
       className={cn("relative w-full overflow-hidden", className)}
@@ -43,7 +53,10 @@ export const InteractiveScrollArea = ({
       </ScrollAreaPrimitive.Scrollbar>
 
       {showIndicator && (
-        <div className="absolute bottom-4 lg:bottom-8 left-1/2 p-2 bg-zinc-200/80 rounded-full -translate-x-1/2 animate-bounce">
+        <div
+          onClick={scrollToBottom}
+          className="absolute bottom-4 cursor-pointer lg:bottom-8 left-1/2 p-2 bg-zinc-200/80 rounded-full -translate-x-1/2 animate-bounce"
+        >
           <ChevronDown className="text-blue-400 lg:text-blue-500 opacity-80" />
         </div>
       )}
