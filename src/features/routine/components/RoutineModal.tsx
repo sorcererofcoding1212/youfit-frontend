@@ -16,6 +16,7 @@ import { useNavigate } from "react-router-dom";
 import { useUserStore } from "../../../store/user.store";
 import { InteractiveScrollArea } from "../../../components/InteractiveScrollArea";
 import { useState } from "react";
+import { useScroll } from "../../../hooks/useScroll";
 
 interface RoutineModalProps {
   open: boolean;
@@ -31,6 +32,8 @@ export const RoutineModal = ({ open, setOpen, refetch }: RoutineModalProps) => {
   const navigate = useNavigate();
   const client = useUserStore((state) => state.client);
   const [creatingWorkout, setCreatingWorkout] = useState(false);
+
+  const { scrollRef, scrollToArea } = useScroll();
 
   const createWorkout = async (routineId: string) => {
     try {
@@ -103,7 +106,10 @@ export const RoutineModal = ({ open, setOpen, refetch }: RoutineModalProps) => {
                   </Button>
                 </div>
               ) : (
-                <InteractiveScrollArea className="mt-10 flex flex-col h-[90%]">
+                <InteractiveScrollArea
+                  onClick={scrollToArea}
+                  className="mt-10 flex flex-col h-[90%]"
+                >
                   {creatingWorkout ? (
                     <ModalLoader />
                   ) : (
@@ -119,6 +125,7 @@ export const RoutineModal = ({ open, setOpen, refetch }: RoutineModalProps) => {
                       </div>
                     ))
                   )}
+                  <div className="h-1" ref={scrollRef}></div>
                 </InteractiveScrollArea>
               )}
             </>

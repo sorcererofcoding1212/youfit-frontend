@@ -4,6 +4,7 @@ import { useExercise } from "../../exercise/hooks/useExercise";
 import { ModalLoader } from "../../../components/ModalLoader";
 import { RoutineExerciseSelectorModalExerciseOption } from "./RoutineExerciseSelectorModalExerciseOption";
 import { InteractiveScrollArea } from "../../../components/InteractiveScrollArea";
+import { useScroll } from "../../../hooks/useScroll";
 
 interface RoutineExerciseSelectorModalOptionsProps {
   setOpen: (val: boolean) => void;
@@ -22,6 +23,7 @@ export const RoutineExerciseSelectorModalOptions = ({
 
   const { categories, loading } = useCategories();
   const { exercises, isLoading } = useExercise(categoryId);
+  const { scrollRef, scrollToArea } = useScroll();
 
   return (
     <div className="h-full">
@@ -42,7 +44,10 @@ export const RoutineExerciseSelectorModalOptions = ({
           )}
         </InteractiveScrollArea>
       ) : (
-        <InteractiveScrollArea className="mt-10 flex flex-col h-[90%]">
+        <InteractiveScrollArea
+          onClick={scrollToArea}
+          className="mt-10 flex flex-col h-[90%]"
+        >
           {isLoading ? (
             <ModalLoader />
           ) : (
@@ -54,6 +59,7 @@ export const RoutineExerciseSelectorModalOptions = ({
               />
             ))
           )}
+          <div className="h-1" ref={scrollRef}></div>
         </InteractiveScrollArea>
       )}
     </div>

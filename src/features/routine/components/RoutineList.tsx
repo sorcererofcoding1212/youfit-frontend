@@ -10,6 +10,7 @@ import type { Routine } from "../../../types/types";
 import { FaTrash } from "react-icons/fa";
 import { useState } from "react";
 import axios from "../../../lib/axios";
+import { useScroll } from "../../../hooks/useScroll";
 
 interface RoutineListProps {
   routines: Routine[];
@@ -33,8 +34,12 @@ export const RoutineList = ({ routines, refetch }: RoutineListProps) => {
       setIsDeleting(false);
     }
   };
+  const { scrollRef, scrollToArea } = useScroll();
   return (
-    <InteractiveScrollArea className="h-[60vh] mt-10 lg:h-[50vh] px-4">
+    <InteractiveScrollArea
+      onClick={scrollToArea}
+      className="h-[60vh] mt-10 lg:h-[50vh] px-4"
+    >
       <Accordion
         type="single"
         collapsible
@@ -71,6 +76,7 @@ export const RoutineList = ({ routines, refetch }: RoutineListProps) => {
           </AccordionItem>
         ))}
       </Accordion>
+      <div className="h-1" ref={scrollRef}></div>
     </InteractiveScrollArea>
   );
 };

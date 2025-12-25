@@ -11,6 +11,7 @@ import { WorkoutAreaSetMenu } from "./WorkoutAreaSetMenu";
 import { PageLoader } from "../../../components/PageLoader";
 import { Button } from "../../../components/ui/button";
 import { InteractiveScrollArea } from "../../../components/InteractiveScrollArea";
+import { useScroll } from "../../../hooks/useScroll";
 
 export const WorkoutArea = () => {
   const sessionId = useAppStore((state) => state.sessionId);
@@ -24,6 +25,7 @@ export const WorkoutArea = () => {
   }
 
   const { isFetching, workouts, refetch } = useWorkouts(sessionId);
+  const { scrollRef, scrollToArea } = useScroll();
 
   const calculateHighestLoad = (sets: Set[]) => {
     const load = sets.map((set) => set.reps * set.weight);
@@ -41,9 +43,12 @@ export const WorkoutArea = () => {
   }
 
   return (
-    <div className="h-full py-4">
+    <div className="h-full pt-4">
       <>
-        <InteractiveScrollArea className="w-full h-[90%]">
+        <InteractiveScrollArea
+          onClick={scrollToArea}
+          className="w-full h-[90%] lg:h-[100%]"
+        >
           {workouts.map((workout) => {
             let highestLoadSetId = "";
             return (
@@ -116,6 +121,7 @@ export const WorkoutArea = () => {
               </div>
             );
           })}
+          <div className="h-1" ref={scrollRef}></div>
         </InteractiveScrollArea>
         <AddExerciseModal
           exerciseDate={date}

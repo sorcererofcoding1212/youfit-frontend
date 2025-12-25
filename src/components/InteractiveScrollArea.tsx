@@ -3,13 +3,17 @@ import { ChevronDown } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import { cn } from "../lib/utils";
 
+interface InteractiveScrollAreaProps {
+  children: React.ReactNode;
+  className?: string;
+  onClick?: () => void;
+}
+
 export const InteractiveScrollArea = ({
   className,
   children,
-}: {
-  className?: string;
-  children: React.ReactNode;
-}) => {
+  onClick,
+}: InteractiveScrollAreaProps) => {
   const viewportRef = useRef<HTMLDivElement | null>(null);
   const [showIndicator, setShowIndicator] = useState(false);
 
@@ -43,7 +47,10 @@ export const InteractiveScrollArea = ({
       </ScrollAreaPrimitive.Scrollbar>
 
       {showIndicator && (
-        <div className="absolute bottom-4 lg:bottom-8 left-1/2 p-2 bg-zinc-200/80 rounded-full -translate-x-1/2 animate-bounce">
+        <div
+          onClick={onClick}
+          className="absolute lg:cursor-pointer bottom-4 lg:bottom-8 left-1/2 p-2 bg-zinc-200/80 rounded-full -translate-x-1/2 animate-bounce"
+        >
           <ChevronDown className="text-blue-400 lg:text-blue-500 opacity-80" />
         </div>
       )}

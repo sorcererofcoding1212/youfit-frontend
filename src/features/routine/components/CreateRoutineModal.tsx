@@ -25,6 +25,7 @@ import { toast } from "sonner";
 import axios from "../../../lib/axios";
 import { cn } from "../../../lib/utils";
 import { InteractiveScrollArea } from "../../../components/InteractiveScrollArea";
+import { useScroll } from "../../../hooks/useScroll";
 
 interface CreateRoutineModalProps {
   open: boolean;
@@ -49,6 +50,7 @@ export const CreateRoutineModal = ({
     },
   });
   const [loading, setLoading] = useState(false);
+  const { scrollRef, scrollToArea } = useScroll();
 
   const addRoutineExercise = (
     exerciseId: string,
@@ -161,7 +163,10 @@ export const CreateRoutineModal = ({
             </form>
           </Form>
         </div>
-        <InteractiveScrollArea className="h-[30%] lg:h-[40%] mt-6">
+        <InteractiveScrollArea
+          onClick={scrollToArea}
+          className="h-[30%] lg:h-[40%] mt-6"
+        >
           {routineExercises.length > 0 &&
             routineExercises
               .sort((a, b) => a.order - b.order)
@@ -183,6 +188,7 @@ export const CreateRoutineModal = ({
                   </div>
                 </div>
               ))}
+          <div className="h-1" ref={scrollRef}></div>
         </InteractiveScrollArea>
         <RoutineExerciseAdder addRoutineExercise={addRoutineExercise} />
         <Button
