@@ -2,7 +2,7 @@ import { LuPlus } from "react-icons/lu";
 import axios from "../../../lib/axios";
 import { useState } from "react";
 import { toast } from "sonner";
-import { convertToServerDate } from "../../../lib/utils";
+import { cn, convertToServerDate } from "../../../lib/utils";
 import { useNavigate } from "react-router-dom";
 import { useAppStore } from "../../../store/app.store";
 
@@ -34,7 +34,8 @@ export const WorkoutAdder = ({ date }: WorkoutAdderProps) => {
       setSessionId(response.data.session._id);
       navigate(`/workout/${response.data.session._id}`);
     } catch (error) {
-      toast.error("Internal server error");
+      console.log(error);
+      toast.error("Some error occured");
     } finally {
       setIsAdding(false);
     }
@@ -45,7 +46,10 @@ export const WorkoutAdder = ({ date }: WorkoutAdderProps) => {
         <LuPlus
           role="button"
           onClick={createNewWorkout}
-          className="size-6 lg:size-8 text-blue-400 lg:text-blue-500"
+          className={cn(
+            "size-6 lg:size-8 text-blue-400 lg:text-blue-500",
+            isAdding && "animate-ping"
+          )}
         />
       </div>
       <div className="mt-2 opacity-60 text-sm lg:text-base">

@@ -33,7 +33,7 @@ export const Searchbar = ({ setOpenExerciseMenu }: SearchbarProps) => {
         setOpenExerciseMenu(true);
       }
     } catch (error) {
-      toast.error("Internal server error");
+      console.log(error)
     }
   };
 

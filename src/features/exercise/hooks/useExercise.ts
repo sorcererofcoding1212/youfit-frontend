@@ -20,7 +20,7 @@ export const useExercise = (categoryId: string | undefined) => {
 
       setExercises(response.data.exercises);
     } catch (error) {
-      toast.error("Internal server error");
+      console.log(error);
     } finally {
       setIsLoading(false);
     }

@@ -18,7 +18,6 @@ export const useRoutines = () => {
       setRoutines(response.data.routines);
     } catch (error) {
       console.log(error);
-      toast.error("Internal server error");
     } finally {
       setFetching(false);
     }
